@@ -39,6 +39,37 @@ function initAcordion(){
 
 initTabNav();
 initAcordion();
+initScrollSuave();
 
+function initScrollSuave(){
+    const linksInternnos = document.querySelectorAll('.js-menu a[href^="#"]');
 
+    function scrollToSection(e){
+        event.preventDefault();
+        const href = e.currentTarget.getAttribute('href');
+        const section = document.querySelector(href);
+        section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
 
+    }
+
+    linksInternnos.forEach((item) =>{
+        item.addEventListener('click', scrollToSection);
+    })
+
+}
+
+const sections = document.querySelectorAll('.js-scroll');
+
+function animaScroll(){
+    sections.forEach((item) =>{
+        const sectionTop = item.getBoundingClientRect().top;
+        if(sectionTop < 0){
+            item.classList.add('ativo');
+        }
+    })
+}
+
+window.addEventListener('scroll', animaScroll)
